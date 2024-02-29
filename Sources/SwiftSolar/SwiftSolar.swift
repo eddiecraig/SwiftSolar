@@ -8,7 +8,7 @@ import CoreLocation
 /// Inspired by code from Neil Tiffin, May 2019 & Performance Champions, Inc., May 2019
 /// Which, in turn, came from C code originally from: [http://stjarnhimlen.se/comp/sunriset.c](http://stjarnhimlen.se/comp/sunriset.c)
 
-struct Calculator {
+public struct Calculator {
     
     /// Compute the number of days elapsed since 2000 Jan 0.0
     /// (which is equal to 1999 Dec 31, 0h UT)
@@ -256,7 +256,7 @@ struct Calculator {
     }
     
     /// Struct that describes sun altitude and whether or not centre or upper limb is used to calulate event
-    struct AstronomicalEvent {
+    public struct AstronomicalEvent {
         /// Sun altitude:
         /// `-35/60` for sunrise/sunset
         /// `-6` for civil twilight
