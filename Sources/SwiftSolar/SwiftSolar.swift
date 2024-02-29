@@ -21,19 +21,8 @@ public struct Calculator {
     ///   - date: Date for calculation
     ///   - coordinate: Location for calculation
     ///   - event: Astronomical event to calculate rise and set times for
-    /// - Returns: Date range of rise and set
+    /// - Returns: Date interval of rise and set
     public static func riseSet(date: Date, coordinate: CLLocationCoordinate2D, event: AstronomicalEvent) throws -> DateInterval {
-        let dateRange: ClosedRange<Date> = try riseSet(date: date, coordinate: coordinate, event: event)
-        return DateInterval(start: dateRange.lowerBound, end: dateRange.upperBound)
-    }
-    
-    /// Calculates rise and set times for specified event
-    /// - Parameters:
-    ///   - date: Date for calculation
-    ///   - coordinate: Location for calculation
-    ///   - event: Astronomical event to calculate rise and set times for
-    /// - Returns: Date range of rise and set
-    public static func riseSet(date: Date, coordinate: CLLocationCoordinate2D, event: AstronomicalEvent) throws -> ClosedRange<Date> {
         let comps = Calendar.current.dateComponents([.day, .month, .year], from: date)
         guard let day = comps.day, let month = comps.month, let year = comps.year else {
             throw Error.invalidDate
@@ -50,7 +39,7 @@ public struct Calculator {
         components.second = Int((utcHours.upperBound * 60 * 60).rounded())
         let set = Calendar(identifier: .gregorian).date(from: components) ?? .distantPast
         
-        return rise...set
+        return DateInterval(start: rise, end: set)
     }
     
     /// Calculate rise/set times for different astronomical events
