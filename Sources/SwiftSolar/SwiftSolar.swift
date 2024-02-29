@@ -22,6 +22,17 @@ public struct Calculator {
     ///   - coordinate: Location for calculation
     ///   - event: Astronomical event to calculate rise and set times for
     /// - Returns: Date range of rise and set
+    public static func riseSet(date: Date, coordinate: CLLocationCoordinate2D, event: AstronomicalEvent) throws -> DateInterval {
+        let dateRange: ClosedRange<Date> = try riseSet(date: date, coordinate: coordinate, event: event)
+        return DateInterval(start: dateRange.lowerBound, end: dateRange.upperBound)
+    }
+    
+    /// Calculates rise and set times for specified event
+    /// - Parameters:
+    ///   - date: Date for calculation
+    ///   - coordinate: Location for calculation
+    ///   - event: Astronomical event to calculate rise and set times for
+    /// - Returns: Date range of rise and set
     public static func riseSet(date: Date, coordinate: CLLocationCoordinate2D, event: AstronomicalEvent) throws -> ClosedRange<Date> {
         let comps = Calendar.current.dateComponents([.day, .month, .year], from: date)
         guard let day = comps.day, let month = comps.month, let year = comps.year else {
@@ -262,14 +273,14 @@ public struct Calculator {
         /// `-6` for civil twilight
         /// `-12` for nautical twilight
         /// `-18` for astronomical twilight
-        let sunAltitude: Double
+        public let sunAltitude: Double
         
         /// `true` for calculating sunset/sunrise
-        let upperLimb: Bool
+        public let upperLimb: Bool
         
-        static let sunriseSet = AstronomicalEvent(sunAltitude: -35/60, upperLimb: true)
-        static let civilTwilight = AstronomicalEvent(sunAltitude: -6, upperLimb: false)
-        static let nauticalTwilight = AstronomicalEvent(sunAltitude: -12, upperLimb: false)
-        static let astronomicalTwilight = AstronomicalEvent(sunAltitude: -18, upperLimb: false)
+        public static let sunriseSet = AstronomicalEvent(sunAltitude: -35/60, upperLimb: true)
+        public static let civilTwilight = AstronomicalEvent(sunAltitude: -6, upperLimb: false)
+        public static let nauticalTwilight = AstronomicalEvent(sunAltitude: -12, upperLimb: false)
+        public static let astronomicalTwilight = AstronomicalEvent(sunAltitude: -18, upperLimb: false)
     }
 }
